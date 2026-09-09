@@ -3,12 +3,14 @@ import express from "express";
 import dotenv from "dotenv";
 import { AppDataSource } from "./database/dataSource";
 import { userRoutes } from "./routes/userRoutes";
+import { authRoutes } from "./routes/authRoutes";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(userRoutes);
+app.use(authRoutes);
 app.get("/health", (req, res) => {
   return res.status(200).json({ status: "OK", timestamp: new Date() });
 });
