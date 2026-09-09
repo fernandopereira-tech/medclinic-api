@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/fernandopereira-tech/medclinic-api#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "pg": "^8.11.3",
@@ -33,6 +34,7 @@
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.24",
     "ts-node-dev": "^2.0.0",
