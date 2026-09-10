@@ -81,10 +81,10 @@ O servidor estará disponível em `http://localhost:3000`.
 
 ```json
 {
-  "name": "João Silva",
+  "nome": "João Silva",
   "email": "joao@email.com",
-  "password": "senhaSegura123",
-  "role": "attendant"
+  "senha": "senhaSegura123",
+  "perfil": "attendant"
 }
 ```
 
@@ -93,7 +93,7 @@ O servidor estará disponível em `http://localhost:3000`.
 ```json
 {
   "email": "joao@email.com",
-  "password": "senhaSegura123"
+  "senha": "senhaSegura123"
 }
 ```
 
