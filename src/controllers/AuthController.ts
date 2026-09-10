@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { AppDataSource } from '../database/dataSource';
 import { User } from '../entities/User';
 import { comparePassword } from '../utils/password';
-import jwt from 'jsonwebtoken';
+import { generateToken } from '../utils/jwt';
 
 export class AuthController {
     async login(req: Request, res: Response): Promise<Response> {
@@ -20,12 +20,10 @@ export class AuthController {
             return res.status(401).json({ message: "E-mail ou senha inválidos" });
         }
 
-        const secret = process.env.JWT_SECRET || "default_secret";
-        const token = jwt.sign(
-            { id: user.id, perfil: user.perfil },
-            secret,
-            { expiresIn: "1d"}
-        );
+const token = generateToken ({
+    id: user.id,
+    perfil: user.perfil,
+})
 
         return res.status(200).json({
             message: "Login realizado com sucesso!",

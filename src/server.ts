@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(userRoutes);
-app.use(authRoutes);
+app.use("/auth", authRoutes);
 app.get("/health", (req, res) => {
   return res.status(200).json({ status: "OK", timestamp: new Date() });
 });
