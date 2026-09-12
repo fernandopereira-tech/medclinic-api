@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt';
 
-export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const authMiddleware = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Response | void => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
@@ -11,7 +15,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     const parts = authHeader.split(" ");
 
     if (parts.length !== 2) {
-        return res.status(401).json({ message: "Erro no formato do tolken." });
+        return res.status(401).json({ message: "Erro no formato do token." });
     }
 
     const [scheme, token] = parts;

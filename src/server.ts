@@ -4,26 +4,32 @@ import dotenv from "dotenv";
 import { AppDataSource } from "./database/dataSource";
 import { userRoutes } from "./routes/userRoutes";
 import { authRoutes } from "./routes/authRoutes";
+import { errorMiddleware } from "./middlewares/errorMiddleware";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(userRoutes);
+
 app.use("/auth", authRoutes);
+app.use(userRoutes);
+
 app.get("/health", (req, res) => {
-  return res.status(200).json({ status: "OK", timestamp: new Date() });
+    return res.status(200).json({ status: "OK", timestamp: new Date() });
 });
+
+app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
 
 AppDataSource.initialize()
-  .then(() => {
-    console.log("Database conectado com sucesso!");
+    .then(() => {
+        console.log("Database conectado com sucesso!");
 
-    app.listen(PORT, () => {
-      console.log(`Servidor rodando na porta ${PORT}`);
+        app.listen(PORT, () => {
+            console.log(`Servidor rodando na porta ${PORT}`);
+        });
+    })
+    .catch((error) => {
+        console.error("Erro ao conectar ao banco de dados:", error);
     });
-})  .catch((error) => {
-    console.error("Erro ao conectar ao banco de dados:", error);
-  });
