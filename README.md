@@ -47,14 +47,20 @@ DB_HOST=localhost
 DB_PORT=5432
 DB_USER=seu_usuario
 DB_PASSWORD=sua_senha
-DB_NAME=medclinic
+DB_NAME=medclinic_db
 JWT_SECRET=sua_chave_secreta_super_segura
 PORT=3000
 ```
 
-### 4. Crie o banco de dados e sincronize as tabelas
+### 4. Crie o banco de dados e rode as migrations
 
-Certifique-se de criar um banco de dados vazio chamado `medclinic` no seu PostgreSQL. A estrutura da tabela de usuários será gerada automaticamente pelo TypeORM ao iniciar a aplicação.
+Crie um banco de dados vazio chamado `medclinic_db` no seu PostgreSQL.
+
+Em seguida, rode as migrations do TypeORM para criar a estrutura da tabela de usuários:
+
+```bash
+npm run migration:run
+```
 
 ### 5. Execute a aplicação
 
@@ -63,6 +69,19 @@ npm run dev
 ```
 
 O servidor estará disponível em `http://localhost:3000`.
+
+---
+
+##  Scripts Disponíveis
+
+| Script | Descrição |
+| :--- | :--- |
+| `npm run dev` | Executa a aplicação em modo de desenvolvimento |
+| `npm run build` | Compila o TypeScript para JavaScript |
+| `npm start` | Executa a versão compilada |
+| `npm run migration:run` | Roda as migrations pendentes |
+| `npm run migration:generate` | Gera uma nova migration |
+| `npm run migration:revert` | Reverte a última migration |
 
 ---
 
@@ -127,13 +146,12 @@ O projeto segue o padrão **MVC em camadas**, promovendo separação de responsa
 ```
 src/
 ├── controllers/      # Recebe requisições HTTP e retorna respostas
-├── services/         # Regras de negócio e validações
-├── repositories/     # Comunicação com o banco via TypeORM
 ├── entities/         # Modelagem das entidades (User)
 ├── middlewares/      # Autenticação (JWT) e Autorização (RBAC)
 ├── routes/           # Definição dos endpoints
-├── database/         # Configuração do DataSource do TypeORM
-├── utils/            # Funções auxiliares (hash, JWT)
+├── database/         # Configuração do DataSource do TypeORM e migrations
+├── utils/            # Funções auxiliares (hash, JWT, AppError, asyncHandler)
+├── @types/           # Tipagem customizada do Express
 └── server.ts         # Ponto de entrada da aplicação
 ```
 
